@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TableClient, AzureNamedKeyCredential } from '@azure/data-tables';
+import { TableClient, AzureNamedKeyCredential, AzureSASCredential } from '@azure/data-tables';
 import { DefaultAzureCredential } from '@azure/identity';
 import { environment } from '../../environments/environment';
 
@@ -20,27 +20,15 @@ export class RsvpService {
   private tableClient: TableClient;
 
   constructor() {
-    const config = environment.azureStorage;
+    const config = environment.azure;
     
-    // Initialize Azure Storage Table Client
-    // Use Managed Identity in production, Account Key for development
-    if (environment.production && !config.accountKey) {
-      // Production: Use Managed Identity (recommended)
-      const credential = new DefaultAzureCredential();
-      this.tableClient = new TableClient(
-        `https://${config.accountName}.table.core.windows.net`,
-        config.tableName,
-        credential
-      );
-    } else {
-      // Development: Use Account Key
-      const credential = new AzureNamedKeyCredential(config.accountName, config.accountKey);
-      this.tableClient = new TableClient(
-        `https://${config.accountName}.table.core.windows.net`,
-        config.tableName,
-        credential
-      );
-    }
+    // Initialize Azure Storage Table Client with SAS token
+    const sasCredential = new AzureSASCredential(config.sasToken);
+    this.tableClient = new TableClient(
+      `https://${config.storageAccountName}.table.core.windows.net`,
+      config.tableName,
+      sasCredential
+    );
 
     // Initialize table if it doesn't exist
     this.initializeTable();

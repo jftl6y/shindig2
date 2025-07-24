@@ -20,42 +20,29 @@ export class RsvpService {
 
   constructor() {
     // Azure Storage configuration from environment
-    const config = environment.azureStorage;
+    const config = environment.azure;
     
     console.log('Azure Storage Config:', {
-      accountName: config.accountName,
+      accountName: config.storageAccountName,
       tableName: config.tableName,
-      hasAccountKey: config.accountKey !== 'YOUR_STORAGE_ACCOUNT_KEY' && config.accountKey.length > 0,
-      authType: config.accountKey.startsWith('sv=') ? 'SAS Token' : 'Account Key'
+      hasSasToken: config.sasToken && config.sasToken.length > 0,
+      authType: 'SAS Token'
     });
     
     // Check if we have valid configuration
-    if (config.accountName === 'YOUR_STORAGE_ACCOUNT_NAME' || config.accountKey === 'YOUR_STORAGE_ACCOUNT_KEY') {
+    if (!config.storageAccountName || !config.sasToken) {
       console.warn('Azure Storage not configured. Using mock service for development.');
-      // Don't initialize the table client for now
       return;
     }
     
-    // Check if the accountKey is actually a SAS token (starts with 'sv=')
-    if (config.accountKey.startsWith('sv=')) {
-      // Use SAS token authentication (browser-compatible)
-      const sasCredential = new AzureSASCredential(config.accountKey);
-      this.tableClient = new TableClient(
-        `https://${config.accountName}.table.core.windows.net`,
-        config.tableName,
-        sasCredential
-      );
-      console.log('Azure Table Client initialized with SAS token for:', `https://${config.accountName}.table.core.windows.net/${config.tableName}`);
-    } else {
-      // Use account key authentication (not supported in browser, but keep for server-side compatibility)
-      console.warn('Account key authentication is not supported in browser. Please use SAS token instead.');
-      const credential = new AzureNamedKeyCredential(config.accountName, config.accountKey);
-      this.tableClient = new TableClient(
-        `https://${config.accountName}.table.core.windows.net`,
-        config.tableName,
-        credential
-      );
-    }
+    // Use SAS token authentication (browser-compatible)
+    const sasCredential = new AzureSASCredential(config.sasToken);
+    this.tableClient = new TableClient(
+      `https://${config.storageAccountName}.table.core.windows.net`,
+      config.tableName,
+      sasCredential
+    );
+    console.log('Azure Table Client initialized with SAS token for:', `https://${config.storageAccountName}.table.core.windows.net/${config.tableName}`);
 
     // Initialize table if it doesn't exist
     this.initializeTable();
