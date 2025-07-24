@@ -44,14 +44,14 @@ jobs:
         DEPLOYMENT_NAME="shindig-deployment-$(date +%Y%m%d%H%M%S)"
         
         az deployment group create \
-          --resource-group rg-shindig-rsvp \
+          --resource-group shindig \
           --template-file infra/main.bicep \
           --parameters @infra/main.parameters.json \
           --name $DEPLOYMENT_NAME
         
         # Wait for deployment to complete
         az deployment group wait \
-          --resource-group rg-shindig-rsvp \
+          --resource-group shindig \
           --name $DEPLOYMENT_NAME \
           --created
 
@@ -59,7 +59,7 @@ jobs:
       id: get-app-name
       run: |
         APP_NAME=$(az deployment group show \
-          --resource-group rg-shindig-rsvp \
+          --resource-group shindig \
           --name shindig-deployment-$(date +%Y%m%d%H%M%S) \
           --query properties.outputs.webAppName.value \
           --output tsv)
@@ -76,13 +76,13 @@ jobs:
       run: |
         # Get the app name from deployment output
         APP_NAME=$(az deployment group list \
-          --resource-group rg-shindig-rsvp \
+          --resource-group shindig \
           --query "[?contains(name, 'shindig-deployment')].properties.outputs.webAppName.value | [0]" \
           --output tsv)
         
         # Configure environment variables
         az webapp config appsettings set \
-          --resource-group rg-shindig-rsvp \
+          --resource-group shindig \
           --name $APP_NAME \
           --settings \
             NODE_ENV=production \
