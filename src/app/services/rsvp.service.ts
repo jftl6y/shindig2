@@ -30,7 +30,9 @@ export class RsvpService {
     });
     
     // Check if we have valid configuration
-    if (!config.storageAccountName || !config.sasToken) {
+    if (!config.storageAccountName || !config.sasToken || 
+        config.storageAccountName === 'YOUR_STORAGE_ACCOUNT_NAME' || 
+        config.sasToken === 'YOUR_SAS_TOKEN') {
       console.warn('Azure Storage not configured. Using mock service for development.');
       return;
     }

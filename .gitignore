@@ -46,5 +46,4 @@ Thumbs.db
 .env.*.local
 
 # Local environment files (to protect local Azure Storage credentials)
-src/environments/environment.ts
 src/environments/config.local.ts
