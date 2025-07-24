@@ -14,7 +14,6 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: dev
     
     steps:
     - name: Checkout code
@@ -89,4 +88,8 @@ jobs:
           --name $APP_NAME \
           --settings \
             NODE_ENV=production \
-            WEBSITE_NODE_DEFAULT_VERSION=~18
+            WEBSITE_NODE_DEFAULT_VERSION=~18 \
+            AZURE_STORAGE_ACCOUNT_NAME="${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}" \
+            AZURE_STORAGE_SAS_TOKEN="${{ secrets.AZURE_STORAGE_SAS_TOKEN }}" \
+            AZURE_STORAGE_TABLE_NAME="rsvpresponses" \
+            AZURE_STORAGE_COMMENT_TABLE_NAME="comments"
