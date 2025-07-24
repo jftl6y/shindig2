@@ -38,7 +38,7 @@ jobs:
     - name: Deploy Infrastructure
       run: |
         # Create resource group if it doesn't exist
-        az group create --name shindig --location eastus
+        az group create --name shindig --location westus3
         
         # Deploy App Service infrastructure with unique deployment name
         DEPLOYMENT_NAME="shindig-deployment-$(date +%Y%m%d%H%M%S)"
