@@ -29,6 +29,11 @@ jobs:
       run: npm ci
 
     - name: Build Angular application
+      env:
+        AZURE_STORAGE_ACCOUNT_NAME: ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
+        AZURE_STORAGE_SAS_TOKEN: ${{ secrets.AZURE_STORAGE_SAS_TOKEN }}
+        AZURE_STORAGE_TABLE_NAME: 'rsvpresponses'
+        AZURE_STORAGE_COMMENT_TABLE_NAME: 'comments'
       run: npm run build -- --configuration=production
 
     - name: Azure Login with OIDC
@@ -84,8 +89,4 @@ jobs:
           --name shindig-rsvp \
           --settings \
             NODE_ENV=production \
-            WEBSITE_NODE_DEFAULT_VERSION=~22 \
-            AZURE_STORAGE_ACCOUNT_NAME="${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}" \
-            AZURE_STORAGE_SAS_TOKEN="${{ secrets.AZURE_STORAGE_SAS_TOKEN }}" \
-            AZURE_STORAGE_TABLE_NAME="rsvpresponses" \
-            AZURE_STORAGE_COMMENT_TABLE_NAME="comments"
+            WEBSITE_NODE_DEFAULT_VERSION=~22
