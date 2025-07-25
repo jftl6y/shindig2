@@ -60,6 +60,7 @@ jobs:
       run: |
         APP_NAME=$(az deployment group show \
           --resource-group shindig-rg \
+          --name shindig
           --query "[?contains(name, 'shindig-deployment')].properties.outputs.webAppName.value | [0]" \
           --output tsv)
         echo "app-name=$APP_NAME" >> $GITHUB_OUTPUT
