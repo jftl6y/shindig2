@@ -58,12 +58,13 @@ jobs:
     - name: Get App Service Name
       id: get-app-name
       run: |
-        APP_NAME=$(az deployment group show \
-          --resource-group shindig-rg \
-          --name shindig
-          --query "[?contains(name, 'shindig-deployment')].properties.outputs.webAppName.value | [0]" \
-          --output tsv)
-        echo "app-name=$APP_NAME" >> $GITHUB_OUTPUT
+        APP_NAME=shindig2-rsvp
+      # $(az deployment group show \
+      #   --resource-group shindig-rg \
+      #   --name shindig
+      #   --query "[?contains(name, 'shindig-deployment')].properties.outputs.webAppName.value | [0]" \
+      #   --output tsv)
+      # echo "app-name=$APP_NAME" >> $GITHUB_OUTPUT
 
     - name: Deploy to App Service
       uses: azure/webapps-deploy@v2
@@ -75,10 +76,7 @@ jobs:
     - name: Configure App Service Settings
       run: |
         # Get the app name from deployment output
-        APP_NAME=$(az deployment group list \
-          --resource-group shindig-rg \
-          --query "[?contains(name, 'shindig')].properties.outputs.webAppName.value | [0]" \
-          --output tsv)
+        APP_NAME=shindig2-rsvp
         
         # Configure environment variables
         az webapp config appsettings set \
