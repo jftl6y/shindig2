@@ -81,7 +81,7 @@ jobs:
         # Configure environment variables
         az webapp config appsettings set \
           --resource-group shindig-rg \
-          --name $APP_NAME \
+          --name shindig-rsvp \
           --settings \
             NODE_ENV=production \
             WEBSITE_NODE_DEFAULT_VERSION=~22 \
