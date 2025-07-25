@@ -195,7 +195,7 @@ import { RsvpService, RsvpResponse } from '../services/rsvp.service';
       <!-- Footer -->
       <div class="card" style="text-align: center; background: rgba(255,255,255,0.9);">
         <p style="color: #667eea; margin-bottom: 10px;">
-          <strong>Questions?</strong> Contact us at party&#64;shindig.com
+          <strong>Questions?</strong> Contact <a href="mailto:chad@bridgers.net">Chad</a>
         </p>
         <p style="color: #888; font-size: 14px;">
           Can't wait to celebrate with you! 🎊
