@@ -21,6 +21,10 @@ module.exports = (config, options) => {
     }),
     new webpack.DefinePlugin({
       global: 'globalThis',
+      'process.env.AZURE_STORAGE_ACCOUNT_NAME': JSON.stringify(process.env.AZURE_STORAGE_ACCOUNT_NAME),
+      'process.env.AZURE_STORAGE_SAS_TOKEN': JSON.stringify(process.env.AZURE_STORAGE_SAS_TOKEN),
+      'process.env.AZURE_STORAGE_TABLE_NAME': JSON.stringify(process.env.AZURE_STORAGE_TABLE_NAME),
+      'process.env.AZURE_STORAGE_COMMENT_TABLE_NAME': JSON.stringify(process.env.AZURE_STORAGE_COMMENT_TABLE_NAME)
     })
   );
 
