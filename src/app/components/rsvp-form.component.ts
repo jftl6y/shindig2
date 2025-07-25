@@ -53,7 +53,8 @@ import { RsvpService, RsvpResponse } from '../services/rsvp.service';
             <div>
               <strong>Party Info:</strong><br>
               Pool party, no need to bring towels, we have plenty<br>
-              We are working on transportation; more information to follow when available
+              We are working on transportation; more information to follow when available<br>
+              <i>Do NOT post about this on social media please!!!</i>
               
             </div>
           </div>
