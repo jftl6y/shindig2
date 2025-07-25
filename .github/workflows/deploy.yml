@@ -69,7 +69,7 @@ jobs:
     - name: Deploy to App Service
       uses: azure/webapps-deploy@v2
       with:
-        app-name: ${{ steps.get-app-name.outputs.app-name }}
+        app-name: 'shindig-rsvp'
         slot-name: 'production'
         package: './dist/shindig-rsvp'
 
