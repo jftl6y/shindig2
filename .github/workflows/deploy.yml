@@ -35,33 +35,32 @@ jobs:
       uses: azure/login@v2
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: Deploy Infrastructure
-      run: |
-        # Create resource group if it doesn't exist
-        az group create --name shindig --location westus3
+    # - name: Deploy Infrastructure
+    #   run: |
+    #     # Create resource group if it doesn't exist
+    #     az group create --name shindig --location westus3
         
-        # Deploy App Service infrastructure with unique deployment name
-        DEPLOYMENT_NAME="shindig-deployment-$(date +%Y%m%d%H%M%S)"
+    #     # Deploy App Service infrastructure with unique deployment name
+    #     DEPLOYMENT_NAME="shindig-deployment-$(date +%Y%m%d%H%M%S)"
         
-        az deployment group create \
-          --resource-group shindig \
-          --template-file infra/main.bicep \
-          --parameters @infra/main.parameters.json \
-          --name $DEPLOYMENT_NAME
+    #     az deployment group create \
+    #       --resource-group shindig \
+    #       --template-file infra/main.bicep \
+    #       --parameters @infra/main.parameters.json \
+    #       --name $DEPLOYMENT_NAME
         
-        # Wait for deployment to complete
-        az deployment group wait \
-          --resource-group shindig \
-          --name $DEPLOYMENT_NAME \
-          --created
+    #     # Wait for deployment to complete
+    #     az deployment group wait \
+    #       --resource-group shindig \
+    #       --name $DEPLOYMENT_NAME \
+    #       --created
 
     - name: Get App Service Name
       id: get-app-name
       run: |
         APP_NAME=$(az deployment group show \
-          --resource-group shindig \
-          --name shindig-deployment-$(date +%Y%m%d%H%M%S) \
-          --query properties.outputs.webAppName.value \
+          --resource-group shindig-rg \
+          --query "[?contains(name, 'shindig-deployment')].properties.outputs.webAppName.value | [0]" \
           --output tsv)
         echo "app-name=$APP_NAME" >> $GITHUB_OUTPUT
 
@@ -76,17 +75,17 @@ jobs:
       run: |
         # Get the app name from deployment output
         APP_NAME=$(az deployment group list \
-          --resource-group shindig \
-          --query "[?contains(name, 'shindig-deployment')].properties.outputs.webAppName.value | [0]" \
+          --resource-group shindig-rg \
+          --query "[?contains(name, 'shindig')].properties.outputs.webAppName.value | [0]" \
           --output tsv)
         
         # Configure environment variables
         az webapp config appsettings set \
-          --resource-group shindig \
+          --resource-group shindig-rg \
           --name $APP_NAME \
           --settings \
             NODE_ENV=production \
-            WEBSITE_NODE_DEFAULT_VERSION=~18 \
+            WEBSITE_NODE_DEFAULT_VERSION=~22 \
             AZURE_STORAGE_ACCOUNT_NAME="${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}" \
             AZURE_STORAGE_SAS_TOKEN="${{ secrets.AZURE_STORAGE_SAS_TOKEN }}" \
             AZURE_STORAGE_TABLE_NAME="rsvpresponses" \

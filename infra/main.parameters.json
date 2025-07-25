@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "location": {
-      "value": "westus3"
+      "value": "centralus"
     },
     "appName": {
       "value": "shindig2-rsvp"
