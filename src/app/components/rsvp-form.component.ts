@@ -70,7 +70,22 @@ import { RsvpService, RsvpResponse } from '../services/rsvp.service';
             <span class="detail-icon">👕</span>
             <div>
               <strong>Want a commemorative shirt?</strong><br>
-              Go to the website below, pick the shirt you want, then call Big Frog (<a href="tel:+14794640160" style="color: #28a745; text-decoration: underline; font-weight: bold; cursor: pointer;">479-464-0160</a>), pay and I'll pick them up and bring the to the party. Please order before August 11th, 2025.
+              Go to the website below, pick the shirt you want, then call Big Frog (<a href="tel:+14794640160" style="color: #28a745; text-decoration: underline; font-weight: bold; cursor: pointer;">479-464-0160</a>), pay and I'll pick them up and bring them to the party. <strong>Please order before August 14th, 2025.</strong>
+              
+              <div style="margin-top: 15px; margin-bottom: 15px;">
+                <div class="shirt-images" style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                <div style="text-align: center;">
+                    <img src="assets/shindig-shirt-front.png" alt="Shindig 2 Shirt Front Design" style="max-width: 200px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">Front Design</p>
+                  </div>  
+                <div style="text-align: center;">
+                    <img src="assets/shindig-shirt-back.jpeg" alt="Shindig 2 Shirt Back Design" style="max-width: 200px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">Back Design</p>
+                  </div>
+                  
+                </div>
+              </div>
+              
               <div style="margin-top: 10px;">
                 <a href="tel:+14794640160" class="btn btn-secondary" style="background: #28a745; border-color: #28a745; color: white;">
                   📞 Call Big Frog
@@ -229,6 +244,15 @@ import { RsvpService, RsvpResponse } from '../services/rsvp.service';
 
       .nav-buttons {
         justify-content: center;
+      }
+      
+      .shirt-images {
+        flex-direction: column !important;
+        align-items: center;
+      }
+      
+      .shirt-images img {
+        max-width: 150px !important;
       }
     }
   `]
