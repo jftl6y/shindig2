@@ -14,8 +14,8 @@ import { RsvpService, RsvpResponse } from '../services/rsvp.service';
       <div class="card">
         <div class="header-content">
           <div>
-            <h1 class="party-header">🎉 You're Invited! 🎉</h1>
-            <h2 style="text-align: center; color: #667eea; margin-bottom: 30px;">Shindig 2</h2>
+            <h1 class="party-header">🎉 You're Invited to Shindig 2! 🎉</h1>
+            <!-- <h2 style="text-align: center; color: #667eea; margin-bottom: 30px;">Shindig 2</h2> -->
           </div>
           <div class="nav-buttons">
             <a routerLink="/rsvps" class="btn btn-secondary">📋 View RSVPs</a>
