@@ -337,7 +337,7 @@ export class RsvpListComponent implements OnInit {
     this.notAttendingCount = this.rsvps.filter(r => !r.attending).length;
     this.totalGuests = this.rsvps
       .filter(r => r.attending)
-      .reduce((sum, r) => sum + r.guestCount, 0);
+      .reduce((sum, r) => sum + Number(r.guestCount || 0), 0);
     this.foodCount = this.rsvps.filter(r => r.attending && r.stayingForFood).length;
   }
 
