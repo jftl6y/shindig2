@@ -82,6 +82,13 @@ import { RsvpService, RsvpResponse } from '../services/rsvp.service';
                     <img src="assets/shindig-shirt-back.jpeg" alt="Shindig 2 Shirt Back Design" style="max-width: 200px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">Back Design</p>
                   </div>
+                <p></p>
+                  <div style="text-align: center;">
+                    <img src="assets/shindig-shirt-front-blue.png" alt="Shindig 2 Shirt Front Design" style="max-width: 200px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+</div>
+<div>   <img src="assets/shindig-shirt-back-blue.png" alt="Shindig 2 Shirt Back Design" style="max-width: 200px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+</div>
+
                   
                 </div>
               </div>
